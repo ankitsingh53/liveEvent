@@ -14,12 +14,20 @@
   },
   "dependencies": {
     "@apollo/server": "^5.5.1",
+    "@as-integrations/express5": "^1.1.2",
     "@types/node": "^26.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
     "graphql": "^16.14.2",
     "pg": "^8.22.0",
     "reflect-metadata": "^0.2.2",
     "tsx": "^4.22.4",
     "typeorm": "^1.0.0",
     "typescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6"
   }
 }

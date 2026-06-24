@@ -1,26 +1,47 @@
-import 'reflect-metadata'
-import { AppDataSource } from './data-source.js'
+import 'reflect-metadata';
+import express from 'express';
+import cors from 'cors';
 import { ApolloServer } from '@apollo/server';
-import { startStandaloneServer } from '@apollo/server/standalone';
+import { expressMiddleware } from '@as-integrations/express5';
+import { AppDataSource } from './data-source.js';
 import { typeDefs } from './graphql/typeDefs.js';
-import {resolvers} from './graphql/resolvers.js'
+import { resolvers } from './graphql/resolvers.js';
 
-const startServer = async ()=>{
-    try {
-        await AppDataSource.initialize();
-    console.log("Database is connected successfully")
+const startServer = async () => {
+  try {
+    await AppDataSource.initialize();
+    console.log('Database connected successfully');
+
+    const app = express();
+
     const server = new ApolloServer({
-        typeDefs,
-        resolvers
-    })
-    const {url} = await startStandaloneServer(server, {
-        listen: {
-            port: 3000,
-        }
-    })
-    console.log(`Server is running at ${url}`)
-    } catch (error) {
-        console.log("Server error", error)
-    }
-}
-startServer()
+      typeDefs,
+      resolvers,
+    });
+
+    await server.start();
+
+    app.use(
+      '/graphql',
+      cors({
+        origin: [
+          'http://localhost:5173',
+        ],
+        credentials: true,
+      }),
+      express.json(),
+      expressMiddleware(server)
+    );
+
+    const PORT = process.env.PORT || 3000;
+
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+
+  } catch (error) {
+    console.error('Server Error:', error);
+  }
+};
+
+startServer();
