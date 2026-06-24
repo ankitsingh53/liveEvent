@@ -22,7 +22,7 @@ const startServer = async () => {
       cors({
         origin: [
           'http://localhost:5173',
-          ''
+          'https://liveevent.onrender.com/graphql'
         ],
         credentials: true,
       }),
