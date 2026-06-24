@@ -4,11 +4,12 @@ import dotenv from 'dotenv';
 dotenv.config()
 
 export const AppDataSource = new DataSource({
-     type: "postgres",
-     url: process.env.DATABASE_URL!,
-     ssl: {
-        rejectUnauthorized: true,
-    },
-     synchronize: true,
+      type: "postgres",
+      url: process.env.DATABASE_URL!,
+      ssl: {
+         rejectUnauthorized: false,
+        },
      entities: [Event],
+     synchronize: false,
+     logging: true,
 }); 
