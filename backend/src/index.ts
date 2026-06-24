@@ -20,11 +20,9 @@ const startServer = async () => {
     app.use(
       '/graphql',
       cors({
-        origin: [
-          'http://localhost:5173',
-          'https://liveevents-q2kz.onrender.com'
-        ],
+        origin: process.env.FRONTEND_URL,
         credentials: true,
+        allowedHeaders: ['Content-Type', 'Authorization'],
       }),
       express.json(),
       expressMiddleware(server)
