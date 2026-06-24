@@ -5,7 +5,10 @@ import { ApolloProvider } from "@apollo/client/react";
 const App = () => {
 
   const client = new ApolloClient({
-  link: new HttpLink({ uri: import.meta.env.VITE_GRAPHQL_URL}),
+  link: new HttpLink({ 
+    uri: import.meta.env.VITE_GRAPHQL_URL,
+    headers: {'apollo-require-preflight': "true"}
+  }),
   cache: new InMemoryCache(),
 });
 

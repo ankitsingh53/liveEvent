@@ -22,7 +22,9 @@ const startServer = async () => {
       cors({
         origin: process.env.FRONTEND_URL,
         credentials: true,
-        allowedHeaders: ['Content-Type', 'Authorization'],
+        allowedHeaders: ['Content-Type', 'Authorization', 'apollo-require-preflight', 'x-apollo-operation-name'],
+        optionsSuccessStatus: 200,
+        methods: ["GET", "POST", "PUT", "DELETE"]
       }),
       express.json(),
       expressMiddleware(server)
