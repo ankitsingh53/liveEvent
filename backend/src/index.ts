@@ -9,19 +9,14 @@ import { resolvers } from './graphql/resolvers.js';
 
 const startServer = async () => {
   try {
-    console.log("DATABASE_URL =", process.env.DATABASE_URL);
     await AppDataSource.initialize();
     console.log('Database connected successfully');
-
     const app = express();
-
     const server = new ApolloServer({
       typeDefs,
       resolvers,
     });
-
     await server.start();
-
     app.use(
       '/graphql',
       cors({
