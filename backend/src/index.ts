@@ -20,8 +20,7 @@ const startServer = async () => {
     app.use(
       '/graphql',
       cors({
-        // origin: process.env.FRONTEND_URL,
-        origin:"https://liveevents-q2kz.onrender.com",
+        origin: process.env.FRONTEND_URL,
         credentials: true,
         allowedHeaders: ['Content-Type', 'Authorization', 'apollo-require-preflight', 'x-apollo-operation-name'],
         optionsSuccessStatus: 200,
